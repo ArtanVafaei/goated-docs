@@ -2,6 +2,7 @@
 
 import { LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store"
 
 interface ToolbarButtonProps {
@@ -69,6 +70,14 @@ export const Toolbar = () => {
             {sections[0].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {/* TODO: Heading */}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {/* TODO: Font family */}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {/* TODO: Font size */}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {/* TODO: Font style */}
         </div>
     );
 };
