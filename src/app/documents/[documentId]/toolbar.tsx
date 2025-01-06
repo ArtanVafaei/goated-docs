@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from "lucide-react"
+import { BoldIcon, LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, Undo2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store"
@@ -62,6 +62,14 @@ export const Toolbar = () => {
                     editor?.view.dom.setAttribute("spellcheck", current === "false" ? "true" : "false")
                 }
             }
+        ],
+        [
+            {
+                label: "Bold",
+                icon: BoldIcon,
+                isActive: editor?.isActive("bold"),
+                onClick: () => editor?.chain().focus().toggleBold().run(),
+            }
         ]
     ];
     
@@ -77,7 +85,9 @@ export const Toolbar = () => {
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             {/* TODO: Font size */}
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-            {/* TODO: Font style */}
+            {sections[1].map((item) => (
+                <ToolbarButton key={item.label} {...item} />
+            ))}
         </div>
     );
 };
