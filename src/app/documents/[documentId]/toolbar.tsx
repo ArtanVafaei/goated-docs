@@ -1,6 +1,6 @@
 "use client";
 
-import { BoldIcon, ItalicIcon, LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, UnderlineIcon, Undo2Icon } from "lucide-react"
+import { BoldIcon, ItalicIcon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, UnderlineIcon, Undo2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store"
@@ -90,6 +90,12 @@ export const Toolbar = () => {
                 onClick: () => console.log("TODO: Comment"),
                 isActive: false, // TODO: Enable this functionality
             },
+            {
+                label: "List Todo",
+                icon: ListTodoIcon,
+                onClick: () => editor?.chain().focus().toggleTaskList().run(),
+                isActive: editor?.isActive("taskList"),
+            }
         ]
     ];
     
