@@ -1,6 +1,6 @@
 "use client";
 
-import { BoldIcon, ItalicIcon, LucideIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, UnderlineIcon, Undo2Icon } from "lucide-react"
+import { BoldIcon, ItalicIcon, LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, SpellCheckIcon, UnderlineIcon, Undo2Icon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store"
@@ -82,6 +82,14 @@ export const Toolbar = () => {
                 isActive: editor?.isActive("underline"),
                 onClick: () => editor?.chain().focus().toggleUnderline().run(),
             }
+        ],
+        [
+            {
+                label: "Comment",
+                icon: MessageSquarePlusIcon,
+                onClick: () => console.log("TODO: Comment"),
+                isActive: false, // TODO: Enable this functionality
+            },
         ]
     ];
     
@@ -98,6 +106,17 @@ export const Toolbar = () => {
             {/* TODO: Font size */}
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             {sections[1].map((item) => (
+                <ToolbarButton key={item.label} {...item} />
+            ))}
+            {/* TODO: Text color */}
+            {/* TODO: Highlight color */}
+            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            {/* TODO: Link */}
+            {/* TODO: Image */}
+            {/* TODO: Align */}
+            {/* TODO: Line height */}
+            {/* TODO: List */}
+            {sections[2].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
         </div>
