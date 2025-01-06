@@ -2,7 +2,9 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import { Color } from '@tiptap/extension-color'
 import FontFamily from '@tiptap/extension-font-family'
+import Highlight from '@tiptap/extension-highlight'
 import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image'
 import Table from '@tiptap/extension-table'
@@ -52,7 +54,11 @@ export const Editor = () => {
     },
     extensions: [
       StarterKit,
+      Color,
       FontFamily,
+      Highlight.configure({
+        multicolor: true,
+      }),
       Image,
       ImageResize,
       Table,
