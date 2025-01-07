@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { type ColorResult, SketchPicker } from "react-color";
 import { type Level } from "@tiptap/extension-heading"
-import { BoldIcon, ChevronDownIcon, HighlighterIcon, ItalicIcon, Link2Icon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon } from "lucide-react"
+import { BoldIcon, ChevronDownIcon, HighlighterIcon, ImageIcon, ItalicIcon, Link2Icon, ListTodoIcon, LucideIcon, MessageSquarePlusIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SearchIcon, SpellCheckIcon, UnderlineIcon, Undo2Icon, UploadIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator";
 import { useEditorStore } from "@/store/use-editor-store"
@@ -13,8 +13,96 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
+const ImageButton = () => {
+  const { editor } = useEditorStore();
+  const [isDialogueOpen, setIsDialogueOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+
+  const onChange = (src: string) => {
+    editor?.chain().focus().setImage({ src }).run();
+  };
+
+  const onUpload = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        onChange(imageUrl);
+      }
+    }
+
+    input.click();
+  };
+
+  const handleImageUrlSubmit = () => {
+    if (imageUrl) {
+      onChange(imageUrl);
+      setImageUrl("");
+      setIsDialogueOpen(false);
+    }
+  };
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button
+            className="h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+          >
+            <ImageIcon className="size-4" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem onClick={onUpload}>
+            <UploadIcon className="size-4 mr-2" />
+            Upload
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDialogueOpen(true)}>
+            <SearchIcon className="size-4 mr-2" />
+            By URL
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <Dialog open={isDialogueOpen} onOpenChange={setIsDialogueOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Insert image</DialogTitle>
+          </DialogHeader>
+          <Input 
+            placeholder="Paste URL of image"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleImageUrlSubmit();
+              }
+            }}
+          />
+          <DialogFooter>
+            <Button onClick={handleImageUrlSubmit}>
+              Insert
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 const LinkButton = () => {
   const { editor } = useEditorStore();
@@ -327,7 +415,7 @@ export const Toolbar = () => {
       <HighlightColorButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <LinkButton />
-      {/* TODO: Image */}
+      <ImageButton />
       {/* TODO: Align */}
       {/* TODO: Line height */}
       {/* TODO: List */}
