@@ -37,7 +37,7 @@ const FontSizeButton = () => {
   const updateFontSize = (newSize: string) => {
     const size = parseInt(newSize)
     if (!isNaN(size) && size > 0) {
-      editor?.chain().focus().setFontSize(`${size}px`).run()
+      editor?.chain().focus().setFontSize(`${size}px`).run();
       setFontSize(newSize);
       setInputValue(newSize);
       setIsEditing(false);
@@ -80,26 +80,14 @@ const FontSizeButton = () => {
       >
         <MinusIcon className="size-4" />
       </button>
-      {isEditing ? (
-        <input 
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
-          onKeyDown={handleKeyDown}
-          className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:outline-none focus:ring-0"
-        />
-      ) : (
-        <button
-          onClick={() => {
-            setIsEditing(true);
-            setFontSize(currentFontSize);
-          }}
-          className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent cursor-text"
-        >
-          {currentFontSize}
-        </button>
-      )}
+      <input 
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
+        className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:ring-0"
+      />
       <button
         onClick={increment}
         className="h-7 w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80"
