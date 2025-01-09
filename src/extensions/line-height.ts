@@ -27,7 +27,7 @@ export const LineHeightExtension = Extension.create({
             renderHTML: attributes => {
               if (!attributes.lineHeight) return {}
               return {
-                style: `line-height ${attributes.lineHeight}`
+                style: `line-height: ${attributes.lineHeight}`
               }
             },
             parseHTML: element => {
@@ -76,4 +76,4 @@ export const LineHeightExtension = Extension.create({
       }
     }
   },
-})
+});
