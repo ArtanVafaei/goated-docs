@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { SaveIcon } from "lucide-react"
+import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, SaveIcon } from "lucide-react"
+import { BsFilePdf } from "react-icons/bs"
 
 import {
   Menubar,
@@ -33,9 +34,33 @@ export const Navbar = () => {
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
                   <MenubarItem>
-                    <SaveIcon className="size-4 mr-2" />
-                    Save
+                    <FilePlusIcon className="size-4 mr-2" />
+                    New document
                   </MenubarItem>
+                  <MenubarSub>
+                    <MenubarSubTrigger>
+                      <SaveIcon className="size-4 mr-2" />
+                      Save as
+                    </MenubarSubTrigger>
+                    <MenubarSubContent>
+                      <MenubarItem>
+                        <BsFilePdf className="size-4 mr-2" />
+                        PDF Document (.pdf)
+                      </MenubarItem>
+                      <MenubarItem>
+                        <FileTextIcon className="size-4 mr-2" />
+                        Plain Text (.txt)
+                      </MenubarItem>
+                      <MenubarItem>
+                        <GlobeIcon className="size-4 mr-2" />
+                        Web Page (.html)
+                      </MenubarItem>
+                      <MenubarItem>
+                        <FileJsonIcon className="size-4 mr-2" />
+                        JSON (.json)
+                      </MenubarItem>
+                    </MenubarSubContent>
+                  </MenubarSub>
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
