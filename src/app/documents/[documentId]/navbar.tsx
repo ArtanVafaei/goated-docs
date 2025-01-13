@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image"
 import Link from "next/link"
 import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, PencilLineIcon, PrinterIcon, SaveIcon, Trash2Icon } from "lucide-react"
@@ -70,6 +72,11 @@ export const Navbar = () => {
                   <MenubarItem>
                     <Trash2Icon className="size-4 mr-2" />
                     Move to trash
+                  </MenubarItem>
+                  <MenubarSeparator />
+                  <MenubarItem onClick={() => window.print()}>
+                    <PrinterIcon className="size-4 mr-2" />
+                    Print <MenubarShortcut>Ctrl+P</MenubarShortcut>
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
