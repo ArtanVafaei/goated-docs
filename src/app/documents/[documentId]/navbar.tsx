@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, SaveIcon } from "lucide-react"
+import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, PencilLineIcon, PrinterIcon, SaveIcon, Trash2Icon } from "lucide-react"
 import { BsFilePdf } from "react-icons/bs"
 
 import {
@@ -9,6 +9,7 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarSeparator,
+  MenubarShortcut,
   MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
@@ -61,6 +62,15 @@ export const Navbar = () => {
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
+                  <MenubarSeparator />
+                  <MenubarItem>
+                    <PencilLineIcon className="size-4 mr-2" />
+                    Rename
+                  </MenubarItem>
+                  <MenubarItem>
+                    <Trash2Icon className="size-4 mr-2" />
+                    Move to trash
+                  </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
