@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, PencilLineIcon, PrinterIcon, SaveIcon, Trash2Icon } from "lucide-react"
+import { FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, PencilLineIcon, PrinterIcon, Redo2Icon, SaveIcon, Trash2Icon, Undo2Icon } from "lucide-react"
 import { BsFilePdf } from "react-icons/bs"
 
 import {
@@ -84,6 +84,16 @@ export const Navbar = () => {
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
                   Edit
                 </MenubarTrigger>
+                <MenubarContent>
+                  <MenubarItem>
+                    <Undo2Icon className="size-4 mr-2" />
+                    Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut>
+                  </MenubarItem>
+                  <MenubarItem>
+                    <Redo2Icon className="size-4 mr-2" />
+                    Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut>
+                  </MenubarItem>
+                </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
