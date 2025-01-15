@@ -27,6 +27,44 @@ export const Navbar = () => {
   const insertTable = ({ rows, cols }: {rows: number, cols: number }) => {
     editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run()
   };
+  
+  const onDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  };
+
+  const onSaveText = () => {
+    if (!editor) return;
+
+    const content = editor.getText();
+    const blob = new Blob([content], {
+      type: "text/plain",
+    });
+    onDownload(blob, `document.txt`) // TOOD: use document name
+  };
+
+  const onSaveHTML = () => {
+    if (!editor) return;
+
+    const content = editor.getHTML();
+    const blob = new Blob([content], {
+      type: "text/html",
+    });
+    onDownload(blob, `document.html`) // TOOD: use document name
+  };
+
+  const onSaveJSON = () => {
+    if (!editor) return;
+
+    const content = editor.getJSON();
+    const blob = new Blob([JSON.stringify(content)], {
+      type: "application/json",
+    });
+    onDownload(blob, `document.json`) // TOOD: use document name
+  };
 
   return (
     <nav className="flex item-center justify-between" >
@@ -39,7 +77,7 @@ export const Navbar = () => {
           <div className="flex" >
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
-                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto cursor-pointer">
                   File
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
@@ -48,24 +86,24 @@ export const Navbar = () => {
                     New document
                   </MenubarItem>
                   <MenubarSub>
-                    <MenubarSubTrigger>
+                    <MenubarSubTrigger className="cursor-pointer">
                       <SaveIcon className="size-4 mr-2" />
                       Save as
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => window.print()} className="cursor-pointer">
                         <BsFilePdf className="size-4 mr-2" />
                         PDF Document (.pdf)
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveText} className="cursor-pointer">
                         <FileTextIcon className="size-4 mr-2" />
                         Plain Text (.txt)
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveHTML} className="cursor-pointer">
                         <GlobeIcon className="size-4 mr-2" />
                         Web Page (.html)
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={onSaveJSON} className="cursor-pointer">
                         <FileJsonIcon className="size-4 mr-2" />
                         JSON (.json)
                       </MenubarItem>
@@ -81,14 +119,14 @@ export const Navbar = () => {
                     Move to trash
                   </MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem onClick={() => window.print()}>
+                  <MenubarItem onClick={() => window.print()} className="cursor-pointer">
                     <PrinterIcon className="size-4 mr-2" />
                     Print <MenubarShortcut>Ctrl+P</MenubarShortcut>
                   </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
-                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto cursor-pointer">
                   Edit
                 </MenubarTrigger>
                 <MenubarContent>
