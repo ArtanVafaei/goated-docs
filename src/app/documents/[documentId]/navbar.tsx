@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { BoldIcon, FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, ItalicIcon, PencilLineIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SaveIcon, StrikethroughIcon, TableIcon, TextIcon, Trash2Icon, Undo2Icon } from "lucide-react"
+import { BoldIcon, FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, ItalicIcon, PencilLineIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SaveIcon, StrikethroughIcon, TableIcon, TextIcon, Trash2Icon, UnderlineIcon, Undo2Icon } from "lucide-react"
 import { BsFilePdf } from "react-icons/bs"
 
 import {
@@ -130,29 +130,29 @@ export const Navbar = () => {
                 </MenubarContent>
               </MenubarMenu>
               <MenubarMenu>
-                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto cursor-pointer">
                   Format
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarSub>
-                    <MenubarSubTrigger>
+                    <MenubarSubTrigger className="cursor-pointer">
                       <TextIcon className="size-4 mr-2" />
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleBold().run()} className="cursor-pointer">
                         <BoldIcon className="size-4 mr-2" />
                         Bold <MenubarShortcut>Ctrl+B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleItalic().run()} className="cursor-pointer">
                         <ItalicIcon className="size-4 mr-2" />
                         Italic <MenubarShortcut>Ctrl+I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
-                        <BoldIcon className="size-4 mr-2" />
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleUnderline().run()} className="cursor-pointer">
+                        <UnderlineIcon className="size-4 mr-2" />
                         Underline <MenubarShortcut>Ctrl+U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleStrike().run()} className="cursor-pointer">
                         <StrikethroughIcon className="size-4 mr-2" />
                         Strikethrough&nbsp;&nbsp;&nbsp; <MenubarShortcut>Alt+Shift+5</MenubarShortcut>
                       </MenubarItem>
