@@ -78,7 +78,7 @@ export const Ruler = () => {
         <Marker
           position={rightMargin}
           isLeft={false}
-          isDragging={false}
+          isDragging={isDraggingRight}
           onMouseDown={handleRightMouseDown}
           onDoubleClick={handleRightDoubleClick}
         />
