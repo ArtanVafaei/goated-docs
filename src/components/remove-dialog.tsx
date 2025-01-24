@@ -39,7 +39,10 @@ export const RemoveDialog = ({ documentId, title, children }: RemoveDialogProps)
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={(e) => e.stopPropagation()}>
+          <AlertDialogCancel
+            disabled={isRemoving}
+            onClick={(e) => e.stopPropagation()}
+          >
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
