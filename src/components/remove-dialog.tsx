@@ -13,10 +13,11 @@ import { Id } from "../../convex/_generated/dataModel";
 
 interface RemoveDialogProps {
   documentId: Id<"documents">;
+  title: string;
   children: React.ReactNode;
 };
 
-export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
+export const RemoveDialog = ({ documentId, title, children }: RemoveDialogProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -25,7 +26,7 @@ export const RemoveDialog = ({ documentId, children }: RemoveDialogProps) => {
       <AlertDialogContent onClick={(e) => e.stopPropagation()}>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Are you want to delete?
+            Are you want to delete &quot;{title}&quot;?
           </AlertDialogTitle>
           <AlertDialogDescription>
             This document will be deleted immediately. You can&apos;t undo this action.

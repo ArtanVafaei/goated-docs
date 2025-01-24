@@ -26,7 +26,10 @@ export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps)
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <RemoveDialog documentId={documentId}>
+        <RemoveDialog
+          documentId={documentId}
+          title={title}
+        >
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             onClick={(e) => e.stopPropagation()}
