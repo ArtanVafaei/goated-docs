@@ -35,7 +35,7 @@ export const RemoveDialog = ({ documentId, title, children }: RemoveDialogProps)
             Are you want to delete &quot;{title}&quot;?
           </AlertDialogTitle>
           <AlertDialogDescription>
-            This document will be deleted immediately. You can&apos;t undo this action.
+            This item will be deleted immediately. You can&apos;t undo this action.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
