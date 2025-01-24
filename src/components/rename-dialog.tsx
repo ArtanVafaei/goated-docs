@@ -21,13 +21,30 @@ interface RenameDialogProps {
 };
 
 export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialogProps) => {
+  const update = useMutation(api.documents.updateById);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const [title, setTitle] = useState(initialTitle);
+  const [open, setOpen] = useState(false);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsUpdating(true);
+
+    update({ id: documentId, title: title.trim() || "Untitled" })
+      .then(() => setOpen(false))
+      .finally(() => {
+        setIsUpdating(false)
+      });
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
       <DialogContent>
-        <form>
+        <form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle>
               Rename
@@ -38,15 +55,28 @@ export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialo
           </DialogHeader>
           <div className="my-4">
             <Input
-              value={initialTitle}
-              onChange={() => {}}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onClick={(e) => e.stopPropagation()}
             />
           </div>
           <DialogFooter>
-            <Button>
+            <Button
+              type="button"
+              variant="ghost"
+              disabled={isUpdating}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+            >
               Cancel
             </Button>
-            <Button>
+            <Button
+              type="submit"
+              disabled={isUpdating}
+              onClick={(e) => e.stopPropagation()}
+            >
               OK
             </Button>
           </DialogFooter>
