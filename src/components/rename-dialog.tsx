@@ -43,7 +43,7 @@ export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialo
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
           <DialogHeader>
             <DialogTitle>
@@ -82,7 +82,6 @@ export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialo
           </DialogFooter>
         </form>
       </DialogContent>
-
     </Dialog>
   );
 };
