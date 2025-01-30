@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Navbar } from "./navbar";
 import { TemplateGallery } from "./template-gallery";
 import { usePaginatedQuery } from "convex/react";
@@ -28,11 +27,6 @@ const Home = () => {
           loadMore={loadMore}
           status={status}
         />
-      </div>
-      <div className="mt-16">
-        Click&nbsp;<Link href="/documents/123">
-        <span className="text-blue-500 underline">here</span>
-        </Link>&nbsp;to go to document id 123
       </div>
     </div>
    );
