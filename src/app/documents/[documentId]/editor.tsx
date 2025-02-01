@@ -61,7 +61,9 @@ export const Editor = () => {
     },
     extensions: [
       liveblocks,
-      StarterKit,
+      StarterKit.configure({
+        history: false,
+      }),
       Color,
       FontFamily,
       FontSizeExtension,
