@@ -9,7 +9,7 @@ const liveblocks = new Liveblocks({
 })
 
 export async function POST(req: Request) {
-  const { sessionClaims} = await auth();
+  const { sessionClaims } = await auth();
   if (!sessionClaims) {
     return new Response("Unauthorized access", { status: 401 });
   }
@@ -27,7 +27,8 @@ export async function POST(req: Request) {
   }
 
   const isOwner = document.ownerId === user.id;
-  const isOrganizationMember = document.organizationId === sessionClaims.org_id;
+  const isOrganizationMember = 
+    !!(document.organizationId && document.organizationId === sessionClaims.org_id);
 
   if (!isOwner && !isOrganizationMember) {
     return new Response("Unauthorized access", { status: 401 });
