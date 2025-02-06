@@ -1,4 +1,45 @@
+"use client";
+
+import { Separator } from "@/components/ui/separator";
+import { ClientSideSuspense } from "@liveblocks/react/suspense";
+import { useOthers, useSelf } from "@liveblocks/react/suspense";
+
 const AVATAR_SIZE = 36;
+
+export const Avatars = () => {
+  return (
+    <ClientSideSuspense fallback={null}>
+      <AvatarStack />
+    </ClientSideSuspense>
+  )
+}
+
+const AvatarStack = () => {
+  const users = useOthers();
+  const currentUser = useSelf();
+
+  if (users.length === 0) return null;
+
+  return (
+    <>
+      <div className="flex items-center">
+        {currentUser && (
+          <div className="relative ml-2">
+            <Avatar src={currentUser.info.avatar} name="You" />
+          </div>
+        )}
+        <div className="flex">
+          {users.map(({ connectionId, info }) => {
+            return (
+              <Avatar key={connectionId} src={info.avatar} name={info.name} />
+            )
+          })}
+        </div>
+      </div>
+      <Separator />
+    </>
+  )
+}
 
 interface AvatarProps {
   src: string;
