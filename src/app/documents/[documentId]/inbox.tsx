@@ -14,7 +14,16 @@ import {
 
 export const Inbox = () => {
   return (
-    <ClientSideSuspense fallback={null}>
+    <ClientSideSuspense fallback={
+      <Button
+        variant="ghost"
+        disabled
+        className="relative"
+        size="icon"
+      >
+        <BellIcon className="size-5" />
+      </Button>
+    }>
       <InboxMenu />
     </ClientSideSuspense>
   );
@@ -22,7 +31,7 @@ export const Inbox = () => {
 
 const InboxMenu = () => {
   const { inboxNotifications } = useInboxNotifications();
-  
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,20 +49,20 @@ const InboxMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-auto">
-          {inboxNotifications.length > 0 ? (
-            <InboxNotificationList>
-              {inboxNotifications.map((inboxNotification) => (
-                <InboxNotification
-                  key={inboxNotification.id}
-                  inboxNotification={inboxNotification}
-                />
-              ))}
-            </InboxNotificationList>
-          ) : (
-            <div className="p-2 w-[400px] text-center text-sm text-muted-foreground">
-              No notifications
-            </div>
-          )}
+        {inboxNotifications.length > 0 ? (
+          <InboxNotificationList>
+            {inboxNotifications.map((inboxNotification) => (
+              <InboxNotification
+                key={inboxNotification.id}
+                inboxNotification={inboxNotification}
+              />
+            ))}
+          </InboxNotificationList>
+        ) : (
+          <div className="p-2 w-[400px] text-center text-sm text-muted-foreground">
+            No notifications
+          </div>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
