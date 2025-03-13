@@ -73,7 +73,10 @@ export function Room({ children }: { children: ReactNode }) {
         }));
       }}
     >
-      <RoomProvider id={params.documentId as string}>
+      <RoomProvider
+        id={params.documentId as string}
+        initialStorage={{ leftMargin: 112, rightMargin: 112 }}
+      >
         <ClientSideSuspense fallback={<FullscreenLoader label="Loading room..." />}>
           {children}
         </ClientSideSuspense>

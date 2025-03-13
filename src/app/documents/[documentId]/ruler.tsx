@@ -1,13 +1,21 @@
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
+import { useStorage, useMutation } from "@liveblocks/react";
 
 const PAGE_WIDTH = 816;
 const MININUM_SPACE = 112;
 const markers = Array.from({ length: 83 }, (_, i) => i)
 
 export const Ruler = () => {
-  const [leftMargin, setLeftMargin] = useState(112);
-  const [rightMargin, setRightMargin] = useState(112);
+  const leftMargin = useStorage((root) => root.leftMargin) ?? 112;
+  const setLeftMargin = useMutation(({ storage }, position: number) => {
+    storage.set("leftMargin", position);
+  }, []);
+
+  const rightMargin = useStorage((root) => root.rightMargin) ?? 112;
+  const setRightMargin = useMutation(({ storage }, position: number) => {
+    storage.set("rightMargin", position);
+  }, []);
 
   const [isDraggingLeft, setIsDraggingLeft] = useState(false);
   const [isDraggingRight, setIsDraggingRight] = useState(false);
@@ -32,7 +40,7 @@ export const Ruler = () => {
         if (isDraggingLeft) {
           const maxLeftPosition = PAGE_WIDTH - rightMargin - MININUM_SPACE;
           const newLeftPosition = Math.min(rawPosition, maxLeftPosition);
-          setLeftMargin(newLeftPosition); // TOOD: Make collaborative
+          setLeftMargin(newLeftPosition);
         }
         else if (isDraggingRight) {
           const maxRightPosition = PAGE_WIDTH - (leftMargin + MININUM_SPACE);
