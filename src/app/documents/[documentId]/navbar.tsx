@@ -26,6 +26,8 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { RenameDialog } from "@/components/rename-dialog";
+import { RemoveDialog } from "@/components/remove-dialog";
 
 interface NavbarProps {
   data: Doc<"documents">;
@@ -139,10 +141,16 @@ export const Navbar = ({ data }: NavbarProps) => {
                     <PencilLineIcon className="size-4 mr-2" />
                     Rename
                   </MenubarItem>
-                  <MenubarItem>
-                    <Trash2Icon className="size-4 mr-2" />
-                    Move to trash
-                  </MenubarItem>
+                  <RemoveDialog documentId={data._id} title={data.title}>
+                    <MenubarItem 
+                      className="cursor-pointer"
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      <Trash2Icon className="size-4 mr-2" />
+                      Move to trash
+                    </MenubarItem>
+                  </RemoveDialog>
                   <MenubarSeparator />
                   <MenubarItem onClick={() => window.print()} className="cursor-pointer">
                     <PrinterIcon className="size-4 mr-2" />
