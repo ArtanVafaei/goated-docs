@@ -22,13 +22,32 @@ import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Inbox } from "./inbox";
 import { Doc } from "../../../../convex/_generated/dataModel";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface NavbarProps {
   data: Doc<"documents">;
 };
 
 export const Navbar = ({ data }: NavbarProps) => {
+  const router = useRouter();
   const { editor } = useEditorStore();
+
+  const mutation = useMutation(api.documents.create);
+
+  const onNewDocument = () => {
+    mutation({
+      title: "Untitled Document",
+      initialContent: ""
+    })
+      .catch(() => toast.error("Something went wrong"))
+      .then((id) => {
+        toast.success("New document created");
+        router.push(`/documents/${id}`);
+      });
+  }
 
   const insertTable = ({ rows, cols }: {rows: number, cols: number }) => {
     editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run()
@@ -87,7 +106,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                   File
                 </MenubarTrigger>
                 <MenubarContent className="print:hidden">
-                  <MenubarItem>
+                  <MenubarItem className="cursor-pointer" onClick={onNewDocument}>
                     <FilePlusIcon className="size-4 mr-2" />
                     New document
                   </MenubarItem>
