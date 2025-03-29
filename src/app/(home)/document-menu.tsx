@@ -54,7 +54,11 @@ export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps)
           </DropdownMenuItem>
         </RemoveDialog>
         <DropdownMenuItem
-          onClick={() => onNewTab(documentId)}
+          onSelect={(e) => e.preventDefault()}
+          onClick={(e) => {
+            e.stopPropagation();
+            onNewTab(documentId);
+          }}
           className="cursor-pointer"
         >
           <SquareArrowOutUpRightIcon className="size-4 mr-2" />
