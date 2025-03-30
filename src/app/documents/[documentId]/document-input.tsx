@@ -80,7 +80,7 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
               inputRef.current?.focus();
             }, 0);
           }}
-          className="text-lg px-1.5 cursor-text truncate"
+          className="text-lg px-1.5 cursor-text max-w-[50ch] truncate"
         >
           {title}
         </span>
