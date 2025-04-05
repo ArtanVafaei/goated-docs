@@ -1,11 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import {
-  LiveblocksProvider,
-  RoomProvider,
-  ClientSideSuspense,
-} from "@liveblocks/react/suspense";
+import { LiveblocksProvider, RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import { useParams } from "next/navigation";
 import { FullscreenLoader } from "@/components/fullscreen-loader";
 import { getUsers, getDocuments } from "./actions";
@@ -29,7 +25,7 @@ export function Room({ children }: { children: ReactNode }) {
         toast.error("Failed to fetch users");
       }
     },
-    [],
+    []
   );
 
   useEffect(() => {
@@ -51,9 +47,7 @@ export function Room({ children }: { children: ReactNode }) {
         return await response.json();
       }}
       resolveUsers={({ userIds }) => {
-        return userIds.map(
-          (userId) => users.find((user) => user.id === userId) ?? undefined
-        )
+        return userIds.map((userId) => users.find((user) => user.id === userId) ?? undefined);
       }}
       resolveMentionSuggestions={({ text }) => {
         let filteredUsers = users;

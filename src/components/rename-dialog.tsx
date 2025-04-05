@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Id } from "../../convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -19,7 +19,7 @@ interface RenameDialogProps {
   documentId: Id<"documents">;
   initialTitle: string;
   children: React.ReactNode;
-};
+}
 
 export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialogProps) => {
   const update = useMutation(api.documents.updateById);
@@ -36,25 +36,19 @@ export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialo
       .catch(() => toast.error("Something went wrong"))
       .then(() => toast.success("Document renamed"))
       .finally(() => {
-        setIsUpdating(false)
+        setIsUpdating(false);
         setOpen(false);
       });
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent onClick={(e) => e.stopPropagation()}>
         <form onSubmit={onSubmit}>
           <DialogHeader>
-            <DialogTitle>
-              Rename
-            </DialogTitle>
-            <DialogDescription>
-              Please enter a new name for the item:
-            </DialogDescription>
+            <DialogTitle>Rename</DialogTitle>
+            <DialogDescription>Please enter a new name for the item:</DialogDescription>
           </DialogHeader>
           <div className="my-4">
             <Input
@@ -75,11 +69,7 @@ export const RenameDialog = ({ documentId, initialTitle, children }: RenameDialo
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={isUpdating}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <Button type="submit" disabled={isUpdating} onClick={(e) => e.stopPropagation()}>
               OK
             </Button>
           </DialogFooter>

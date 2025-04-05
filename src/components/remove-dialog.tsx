@@ -8,7 +8,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import { Id } from "../../convex/_generated/dataModel";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -20,7 +20,7 @@ interface RemoveDialogProps {
   documentId: Id<"documents">;
   title: string;
   children: React.ReactNode;
-};
+}
 
 export const RemoveDialog = ({ documentId, title, children }: RemoveDialogProps) => {
   const router = useRouter();
@@ -29,23 +29,16 @@ export const RemoveDialog = ({ documentId, title, children }: RemoveDialogProps)
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {children}
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent onClick={(e) => e.stopPropagation()}>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Are you want to delete &quot;{title}&quot;?
-          </AlertDialogTitle>
+          <AlertDialogTitle>Are you want to delete &quot;{title}&quot;?</AlertDialogTitle>
           <AlertDialogDescription>
             This item will be deleted immediately. You can&apos;t undo this action.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel
-            disabled={isRemoving}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <AlertDialogCancel disabled={isRemoving} onClick={(e) => e.stopPropagation()}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction

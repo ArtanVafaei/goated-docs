@@ -1,9 +1,27 @@
 "use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { BoldIcon, FileJsonIcon, FilePlusIcon, FileTextIcon, GlobeIcon, ItalicIcon, PencilLineIcon, PrinterIcon, Redo2Icon, RemoveFormattingIcon, SaveIcon, StrikethroughIcon, TableIcon, TextIcon, Trash2Icon, UnderlineIcon, Undo2Icon } from "lucide-react"
-import { BsFilePdf } from "react-icons/bs"
+import Image from "next/image";
+import Link from "next/link";
+import {
+  BoldIcon,
+  FileJsonIcon,
+  FilePlusIcon,
+  FileTextIcon,
+  GlobeIcon,
+  ItalicIcon,
+  PencilLineIcon,
+  PrinterIcon,
+  Redo2Icon,
+  RemoveFormattingIcon,
+  SaveIcon,
+  StrikethroughIcon,
+  TableIcon,
+  TextIcon,
+  Trash2Icon,
+  UnderlineIcon,
+  Undo2Icon,
+} from "lucide-react";
+import { BsFilePdf } from "react-icons/bs";
 import {
   Menubar,
   MenubarContent,
@@ -15,9 +33,9 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@/components/ui/menubar"
+} from "@/components/ui/menubar";
 import { Avatars } from "./avatars";
-import { DocumentInput } from "./document-input"
+import { DocumentInput } from "./document-input";
 import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Inbox } from "./inbox";
@@ -31,7 +49,7 @@ import { RemoveDialog } from "@/components/remove-dialog";
 
 interface NavbarProps {
   data: Doc<"documents">;
-};
+}
 
 export const Navbar = ({ data }: NavbarProps) => {
   const router = useRouter();
@@ -42,19 +60,19 @@ export const Navbar = ({ data }: NavbarProps) => {
   const onNewDocument = () => {
     mutation({
       title: "Untitled Document",
-      initialContent: ""
+      initialContent: "",
     })
       .catch(() => toast.error("Something went wrong"))
       .then((id) => {
         toast.success("New document created");
         router.push(`/documents/${id}`);
       });
-  }
-
-  const insertTable = ({ rows, cols }: {rows: number, cols: number }) => {
-    editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run()
   };
-  
+
+  const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
+    editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
+  };
+
   const onDownload = (blob: Blob, filename: string) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -70,7 +88,7 @@ export const Navbar = ({ data }: NavbarProps) => {
     const blob = new Blob([content], {
       type: "text/plain",
     });
-    onDownload(blob, `${data.title}.txt`)
+    onDownload(blob, `${data.title}.txt`);
   };
 
   const onSaveHTML = () => {
@@ -80,7 +98,7 @@ export const Navbar = ({ data }: NavbarProps) => {
     const blob = new Blob([content], {
       type: "text/html",
     });
-    onDownload(blob, `${data.title}.html`)
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveJSON = () => {
@@ -90,18 +108,18 @@ export const Navbar = ({ data }: NavbarProps) => {
     const blob = new Blob([JSON.stringify(content)], {
       type: "application/json",
     });
-    onDownload(blob, `${data.title}.json`)
+    onDownload(blob, `${data.title}.json`);
   };
 
   return (
-    <nav className="flex item-center justify-between" >
+    <nav className="flex item-center justify-between">
       <div className="flex gap-2 items-center">
         <Link href="/">
           <Image src="/logo.svg" alt="Logo" width={36} height={36} />
         </Link>
         <div className="flex flex-col">
           <DocumentInput title={data.title} id={data._id} />
-          <div className="flex" >
+          <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
                 <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto cursor-pointer">
@@ -148,7 +166,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                     </MenubarItem>
                   </RenameDialog>
                   <RemoveDialog documentId={data._id} title={data.title}>
-                    <MenubarItem 
+                    <MenubarItem
                       className="cursor-pointer"
                       onClick={(e) => e.stopPropagation()}
                       onSelect={(e) => e.preventDefault()}
@@ -169,11 +187,17 @@ export const Navbar = ({ data }: NavbarProps) => {
                   Edit
                 </MenubarTrigger>
                 <MenubarContent>
-                  <MenubarItem onClick={() => editor?.chain().focus().undo().run()} className="cursor-pointer">
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().undo().run()}
+                    className="cursor-pointer"
+                  >
                     <Undo2Icon className="size-4 mr-2" />
                     Undo <MenubarShortcut>Ctrl+Z</MenubarShortcut>
                   </MenubarItem>
-                  <MenubarItem onClick={() => editor?.chain().focus().redo().run()} className="cursor-pointer">
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().redo().run()}
+                    className="cursor-pointer"
+                  >
                     <Redo2Icon className="size-4 mr-2" />
                     Redo <MenubarShortcut>Ctrl+Y</MenubarShortcut>
                   </MenubarItem>
@@ -190,16 +214,28 @@ export const Navbar = ({ data }: NavbarProps) => {
                       Table
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem onClick={() => insertTable({ rows: 1, cols: 1})} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => insertTable({ rows: 1, cols: 1 })}
+                        className="cursor-pointer"
+                      >
                         1 x 1
                       </MenubarItem>
-                      <MenubarItem onClick={() => insertTable({ rows: 2, cols: 2})} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => insertTable({ rows: 2, cols: 2 })}
+                        className="cursor-pointer"
+                      >
                         2 x 2
                       </MenubarItem>
-                      <MenubarItem onClick={() => insertTable({ rows: 3, cols: 3})} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => insertTable({ rows: 3, cols: 3 })}
+                        className="cursor-pointer"
+                      >
                         3 x 3
                       </MenubarItem>
-                      <MenubarItem onClick={() => insertTable({ rows: 4, cols: 4})} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => insertTable({ rows: 4, cols: 4 })}
+                        className="cursor-pointer"
+                      >
                         4 x 4
                       </MenubarItem>
                     </MenubarSubContent>
@@ -217,26 +253,42 @@ export const Navbar = ({ data }: NavbarProps) => {
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem onClick={() => editor?.chain().focus().toggleBold().run()} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => editor?.chain().focus().toggleBold().run()}
+                        className="cursor-pointer"
+                      >
                         <BoldIcon className="size-4 mr-2" />
                         Bold <MenubarShortcut>Ctrl+B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem onClick={() => editor?.chain().focus().toggleItalic().run()} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => editor?.chain().focus().toggleItalic().run()}
+                        className="cursor-pointer"
+                      >
                         <ItalicIcon className="size-4 mr-2" />
                         Italic <MenubarShortcut>Ctrl+I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem onClick={() => editor?.chain().focus().toggleUnderline().run()} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => editor?.chain().focus().toggleUnderline().run()}
+                        className="cursor-pointer"
+                      >
                         <UnderlineIcon className="size-4 mr-2" />
                         Underline <MenubarShortcut>Ctrl+U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem onClick={() => editor?.chain().focus().toggleStrike().run()} className="cursor-pointer">
+                      <MenubarItem
+                        onClick={() => editor?.chain().focus().toggleStrike().run()}
+                        className="cursor-pointer"
+                      >
                         <StrikethroughIcon className="size-4 mr-2" />
-                        Strikethrough&nbsp;&nbsp;&nbsp; <MenubarShortcut>Alt+Shift+5</MenubarShortcut>
+                        Strikethrough&nbsp;&nbsp;&nbsp;{" "}
+                        <MenubarShortcut>Alt+Shift+5</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
                   <MenubarSeparator />
-                  <MenubarItem onClick={() => editor?.chain().focus().unsetAllMarks().run()} className="cursor-pointer">
+                  <MenubarItem
+                    onClick={() => editor?.chain().focus().unsetAllMarks().run()}
+                    className="cursor-pointer"
+                  >
                     <RemoveFormattingIcon className="size-4 mr-2" />
                     Clear formatting
                   </MenubarItem>
@@ -258,5 +310,5 @@ export const Navbar = ({ data }: NavbarProps) => {
         <UserButton />
       </div>
     </nav>
-  )
-}
+  );
+};

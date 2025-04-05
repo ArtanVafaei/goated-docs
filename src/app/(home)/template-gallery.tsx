@@ -25,7 +25,7 @@ export const TemplateGallery = () => {
     create({ title, initialContent })
       .catch(() => toast.error("Something went wrong"))
       .then((documentId) => {
-        toast.success("Document created")
+        toast.success("Document created");
         router.push(`/documents/${documentId}`);
       })
       .finally(() => {
@@ -61,9 +61,7 @@ export const TemplateGallery = () => {
                     }}
                     className="size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white"
                   />
-                  <p className="text-sm font-medium truncate">
-                    {template.label}
-                  </p>
+                  <p className="text-sm font-medium truncate">{template.label}</p>
                 </div>
               </CarouselItem>
             ))}

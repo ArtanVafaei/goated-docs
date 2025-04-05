@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { Loader2Icon } from "lucide-react";
 import { DocumentRow } from "./document-row";
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,7 @@ interface DocumentsTableProps {
   status: PaginationStatus;
 }
 
-export const DocumentsTable = ({
-  documents,
-  loadMore,
-  status,
-}: DocumentsTableProps) => {
+export const DocumentsTable = ({ documents, loadMore, status }: DocumentsTableProps) => {
   return (
     <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
       {documents === undefined ? (

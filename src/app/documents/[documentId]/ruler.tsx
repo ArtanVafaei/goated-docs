@@ -6,7 +6,7 @@ import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
 const PAGE_WIDTH = 816;
 const MININUM_SPACE = 56;
-const markers = Array.from({ length: 83 }, (_, i) => i)
+const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
   const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
@@ -43,16 +43,15 @@ export const Ruler = () => {
           const maxLeftPosition = PAGE_WIDTH - rightMargin - MININUM_SPACE;
           const newLeftPosition = Math.min(rawPosition, maxLeftPosition);
           setLeftMargin(newLeftPosition);
-        }
-        else if (isDraggingRight) {
+        } else if (isDraggingRight) {
           const maxRightPosition = PAGE_WIDTH - (leftMargin + MININUM_SPACE);
           const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
-          const constrainedRightPosition = Math.min(newRightPosition, maxRightPosition)
+          const constrainedRightPosition = Math.min(newRightPosition, maxRightPosition);
           setRightMargin(constrainedRightPosition);
         }
       }
     }
-  }
+  };
 
   const handleMouseUp = () => {
     setIsDraggingLeft(false);
@@ -62,10 +61,10 @@ export const Ruler = () => {
   const handleLeftDoubleClick = () => {
     setLeftMargin(LEFT_MARGIN_DEFAULT);
   };
-  
+
   const handleRightDoubleClick = () => {
     setRightMargin(RIGHT_MARGIN_DEFAULT);
-  }
+  };
 
   return (
     <div
@@ -73,11 +72,9 @@ export const Ruler = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden">
-      <div
-        id="ruler-container"
-        className="w-full h-full relative"
-      >
+      className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
+    >
+      <div id="ruler-container" className="w-full h-full relative">
         <Marker
           position={leftMargin}
           isLeft={true}
@@ -94,15 +91,11 @@ export const Ruler = () => {
         />
         <div className="absolute inset-x-0 bottom-0 h-full">
           <div className={`relative h-full w-[${PAGE_WIDTH}px]`}>
-            {markers.map((marker => {
+            {markers.map((marker) => {
               const position = (marker * PAGE_WIDTH) / 82;
 
               return (
-                <div
-                  key={marker}
-                  className="absolute bottom-0"
-                  style={{ left: `${position}px` }}
-                >
+                <div key={marker} className="absolute bottom-0" style={{ left: `${position}px` }}>
                   {marker % 10 === 0 && (
                     <>
                       <div className="absolute bottom-0 w-[1px] h-2 bg-neutral-500" />
@@ -118,8 +111,8 @@ export const Ruler = () => {
                     <div className="absolute bottom-0 w-[1px] h-1 bg-neutral-500" />
                   )}
                 </div>
-              )
-            }))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -133,15 +126,9 @@ interface MarkerProps {
   isDragging: boolean;
   onMouseDown: () => void;
   onDoubleClick: () => void;
-};
+}
 
-const Marker = ({
-  position,
-  isLeft,
-  isDragging,
-  onMouseDown,
-  onDoubleClick,
-}: MarkerProps) => {
+const Marker = ({ position, isLeft, isDragging, onMouseDown, onDoubleClick }: MarkerProps) => {
   return (
     <div
       className="absolute top-0 w-4 h-full cursor-ew-resize z-[5] group -ml-2"

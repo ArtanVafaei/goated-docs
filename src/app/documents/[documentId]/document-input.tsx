@@ -53,17 +53,14 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
       .finally(() => setIsPending(false));
   };
 
-  const showLoader =
-    isPending || status === "connecting" || status === "reconnecting";
+  const showLoader = isPending || status === "connecting" || status === "reconnecting";
   const showError = status === "disconnected";
 
   return (
     <div className="flex items-center gap-2">
       {isEditing ? (
         <form onSubmit={handleSubmit} className="relative w-fit max-w-[50ch]">
-          <span className="invisible whitespace-pre px-1.5 text-lg">
-            {value || " "}
-          </span>
+          <span className="invisible whitespace-pre px-1.5 text-lg">{value || " "}</span>
           <input
             ref={inputRef}
             value={value}
@@ -87,9 +84,7 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
       )}
       {showError && <BsCloudSlash className="size-4" />}
       {!showError && !showLoader && <BsCloudCheck className="size-4" />}
-      {showLoader && (
-        <Loader2Icon className="size-4 animate-spin text-muted-foreground" />
-      )}
+      {showLoader && <Loader2Icon className="size-4 animate-spin text-muted-foreground" />}
     </div>
   );
 };

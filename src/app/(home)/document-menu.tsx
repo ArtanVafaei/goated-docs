@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { RemoveDialog } from "@/components/remove-dialog";
 import { RenameDialog } from "@/components/rename-dialog";
 
@@ -16,7 +16,7 @@ interface DocumentMenuProps {
   documentId: Id<"documents">;
   title: string;
   onNewTab: (id: Id<"documents">) => void;
-};
+}
 
 export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps) => {
   return (
@@ -27,10 +27,7 @@ export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps)
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <RenameDialog
-          documentId={documentId}
-          initialTitle={title}
-        >
+        <RenameDialog documentId={documentId} initialTitle={title}>
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             onClick={(e) => e.stopPropagation()}
@@ -40,10 +37,7 @@ export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps)
             Rename
           </DropdownMenuItem>
         </RenameDialog>
-        <RemoveDialog
-          documentId={documentId}
-          title={title}
-        >
+        <RemoveDialog documentId={documentId} title={title}>
           <DropdownMenuItem
             onSelect={(e) => e.preventDefault()}
             onClick={(e) => e.stopPropagation()}
@@ -66,5 +60,5 @@ export const DocumentMenu = ({ documentId, title, onNewTab }: DocumentMenuProps)
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 };

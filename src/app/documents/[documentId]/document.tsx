@@ -2,14 +2,14 @@
 
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
-import { Editor } from "./editor"
+import { Editor } from "./editor";
 import { Navbar } from "./navbar";
 import { Room } from "./room";
 import { Toolbar } from "./toolbar";
 
 interface DocumentProps {
   preloadedDocument: Preloaded<typeof api.documents.getById>;
-};
+}
 
 export const Document = ({ preloadedDocument }: DocumentProps) => {
   const document = usePreloadedQuery(preloadedDocument);
@@ -27,4 +27,4 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
       </div>
     </Room>
   );
-}
+};

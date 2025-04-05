@@ -6,7 +6,7 @@ import { api } from "../../../../convex/_generated/api";
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 const liveblocks = new Liveblocks({
   secret: process.env.LIVEBLOCKS_SECRET_KEY!,
-})
+});
 
 export async function POST(req: Request) {
   const { sessionClaims } = await auth();
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
   const user = await currentUser();
   if (!user) {
-    return new Response("Unauthorized access", { status: 401});
+    return new Response("Unauthorized access", { status: 401 });
   }
 
   const { room } = await req.json();
@@ -27,8 +27,9 @@ export async function POST(req: Request) {
   }
 
   const isOwner = document.ownerId === user.id;
-  const isOrganizationMember = 
-    !!(document.organizationId && document.organizationId === sessionClaims.org_id);
+  const isOrganizationMember = !!(
+    document.organizationId && document.organizationId === sessionClaims.org_id
+  );
 
   if (!isOwner && !isOrganizationMember) {
     return new Response("Unauthorized access", { status: 401 });
@@ -50,4 +51,4 @@ export async function POST(req: Request) {
   const { body, status } = await session.authorize();
 
   return new Response(body, { status });
-};
+}
